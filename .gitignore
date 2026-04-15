@@ -3,3 +3,6 @@ node_modules/
 .env
 .env.local
 .env*.local
+public/audio2.mp3
+public/audios/
+public/*.mp4
