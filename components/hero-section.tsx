@@ -35,7 +35,7 @@ export function HeroSection() {
       <div className="absolute inset-0 w-full h-[81%]">
         <video
           className="w-full h-full object-cover"
-          src="/8074ae3fd2457d9bfec04fbf896dd36e.mp4"
+          src="https://vz-8b014dd7-1d8.b-cdn.net/8d021fac-d3f3-419f-8062-d2299771d540/play_480p.mp4"
           autoPlay
           loop
           muted
