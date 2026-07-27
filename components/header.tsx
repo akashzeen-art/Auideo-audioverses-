@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
-import { Menu, X, Search, Languages, UserCircle } from "lucide-react"
+import { Menu, X, Search, Languages } from "lucide-react"
 import GoogleTranslate from "./GoogleTranslate"
 
 export function Header() {
@@ -17,9 +17,6 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
-  const [isProfileOpen, setIsProfileOpen] = useState(false)
-  const [mobile, setMobile] = useState("")
-  const [mobileSaved, setMobileSaved] = useState(false)
   const searchRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -125,15 +122,13 @@ export function Header() {
               <GoogleTranslate />
             </div>
 
-            {/* Profile Button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="text-[#EAEAEA] hover:text-[#FFD369]"
-              onClick={() => { setIsProfileOpen(true); setMobileSaved(false) }}
+            {/* Profile Link */}
+            <Link
+              href="/profile"
+              className="hidden md:block text-[#EAEAEA] hover:text-[#FFD369] transition-colors duration-300 px-3 py-1 font-medium"
             >
-              <UserCircle className="w-6 h-6" />
-            </Button>
+              Profile
+            </Link>
 
             {/* Desktop Actions */}
             <div
@@ -203,7 +198,7 @@ export function Header() {
           )}
         >
           <nav className="space-y-2">
-            {["Home", "Browse"].map((item) => (
+            {["Home", "Browse", "Profile"].map((item) => (
               <Link
                 key={item}
                 href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
@@ -221,39 +216,6 @@ export function Header() {
 
       </div>
 
-      {/* Profile Modal */}
-      {isProfileOpen && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={() => setIsProfileOpen(false)}>
-          <div className="bg-[#2C2C3E] rounded-2xl p-8 w-full max-w-sm mx-4 shadow-2xl border border-[#3A3A55]" onClick={(e) => e.stopPropagation()}>
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-bold text-[#EAEAEA]">My Profile</h2>
-              <button onClick={() => setIsProfileOpen(false)} className="text-[#EAEAEA]/60 hover:text-[#FFD369] transition-colors">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div className="flex flex-col items-center gap-6">
-              <UserCircle className="w-20 h-20 text-[#FFD369]" />
-              <div className="w-full">
-                <label className="block text-sm text-[#EAEAEA]/70 mb-2">Mobile Number</label>
-                <Input
-                  type="tel"
-                  placeholder="Enter your mobile number"
-                  value={mobile}
-                  onChange={(e) => setMobile(e.target.value)}
-                  className="bg-[#1E1E2F] border-[#3A3A55] text-[#EAEAEA] placeholder:text-[#EAEAEA]/40 focus:border-[#FFD369] w-full"
-                />
-              </div>
-              <Button
-                className="w-full bg-[#FFD369] text-[#1E1E2F] hover:bg-[#FFD369]/90 font-bold"
-                onClick={() => { if (mobile.trim()) { setMobileSaved(true) } }}
-              >
-                {mobileSaved ? "✓ Saved" : "Save"}
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
     </header>
   )
 }
